@@ -12,9 +12,9 @@ int Reverse_number(int n)
 		size_n++;
 	}
 
-	while (n != 0)
+	while (n != 0) 
 	{
-		res += (int)(n % 10 * pow(10, size_n - 1));
+		res += (int)(n % 10 * pow(10, size_n-1));
 		size_n--;
 		n = n / 10;
 	}
@@ -23,20 +23,18 @@ int Reverse_number(int n)
 
 // For task #2
 
-// For task #3
-
-void Add(CNode **Node, int data)
+void Add_char(CNode_char **Node, char data)
 {
 	if (*Node == NULL)
 	{
-		*Node = new CNode;
+		*Node = new CNode_char;
 		(*Node)->data = data;
 		(*Node)->next = NULL;
 	}
 	else
 	{
-		CNode *temp = new CNode;
-		CNode *clone = *Node;
+		CNode_char *temp = new CNode_char;
+		CNode_char *clone = *Node;
 
 		while ((*Node)->next != NULL)
 			*Node = (*Node)->next;
@@ -47,12 +45,64 @@ void Add(CNode **Node, int data)
 	}
 }
 
-CNode Reverse_list(CNode *&Node)
+CNode_char* Search_max_prefix(char** m_str, int s)
+{
+	CNode_char *str = NULL;
+	int flag = 0;
+	char temp = 0;
+
+	if ((m_str != NULL) && (s>0))
+	{
+		for (int i = 0; m_str[0][i] != '\0'; ++i)
+		{
+			flag = 0;
+			temp = m_str[0][i];
+			for (int j = 1; (j < s) && (m_str[j][i] != '\0'); ++j)
+			{
+				if (m_str[j][i] == temp)
+					flag++;
+				else
+					break;
+			}
+			if (flag == s - 1)
+				Add_char(&str, m_str[0][i]);
+		}
+		return str;
+	}
+	else
+		throw logic_error("Error description");
+}
+
+// For task #3
+
+void Add_int(CNode_int **Node, int data)
+{
+	if (*Node == NULL)
+	{
+		*Node = new CNode_int;
+		(*Node)->data = data;
+		(*Node)->next = NULL;
+	}
+	else
+	{
+		CNode_int *temp = new CNode_int;
+		CNode_int *clone = *Node;
+
+		while ((*Node)->next != NULL)
+			*Node = (*Node)->next;
+		(*Node)->next = temp;
+		temp->data = data;
+		temp->next = NULL;
+		*Node = clone;
+	}
+}
+
+CNode_int* Reverse_list(CNode_int *Node)
 {
 	if (Node == NULL)
-		throw 1;
+		throw logic_error("Error description");
 
-	CNode *res = Node;
+	CNode_int *res = Node;
 	int temp = 0;
 
 	while (Node != NULL)
@@ -68,24 +118,28 @@ CNode Reverse_list(CNode *&Node)
 			Node = Node->next;
 	}
 
-	return *res;
+	return res;
 }
 
 // For task #4
 
-int* Search_elems(int *Ar, int size, int sum)
+CNode_int* Search_elems(int *Ar, int size, int sum)
 {
-	int *Res = new int[size];
-	int k = 0;
-	for (int i = 0; i < size; ++i)
-		for (int j = i + 1; j < size; ++j)
-		{
-			if ((Ar[i] + Ar[j]) == sum)
+	CNode_int *Res = NULL;
+
+	if ((Ar != NULL) && (size > 0))
+	{
+		for (int i = 0; i < size - 1; ++i)
+			for (int j = i + 1; j < size; ++j)
 			{
-				Res[k] = Ar[i];
-				Res[k + 1] = Ar[j];
-				k += 2;
+				if ((Ar[i] + Ar[j]) == sum)
+				{
+					Add_int(&Res, Ar[i]);
+					Add_int(&Res, Ar[j]);
+				}
 			}
-		}
-	return Res;
+		return Res;
+	}
+	else 
+		throw logic_error("Error description");
 }

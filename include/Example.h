@@ -1,16 +1,35 @@
 #include <stdio.h>
-#include <conio.h>
 #include <iostream>
 
 using namespace std;
 
-struct CNode
+//----------------------- For task #1
+
+int Reverse_number(int);	
+
+//----------------------- For task #2
+
+struct CNode_char
 {
-	int data;
-	CNode *next;
+	char data;
+	CNode_char *next;
 };
 
-int Reverse_number(int);
-void Add(CNode**, int);
-CNode Reverse_list(CNode*&);
-int* Search_elems(int*, int, int);
+CNode_char* Search_max_prefix(char**, int);		
+void Add_char(CNode_char**, char);
+
+//----------------------- For task #3
+
+struct CNode_int
+{
+	int data;
+	CNode_int *next;
+};
+
+CNode_int* Reverse_list(CNode_int*);			
+void Add_int(CNode_int**, int);
+
+//----------------------- For task #4
+
+CNode_int* Search_elems(int*, int, int);			
+
